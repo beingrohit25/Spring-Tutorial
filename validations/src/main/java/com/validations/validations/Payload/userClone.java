@@ -20,7 +20,7 @@ public class userClone {
     private String name;
 
     @Email(message = "Enter correct email")
-    private String mobile;
+    private String email;
 
     @Size(min = 2, max = 20, message = "Please Enter correct name")
     private String city;

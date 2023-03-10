@@ -22,7 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String name;
-    private String mobile;
+    private String email;
     private String city;
     private Integer age;
     private LocalDate dateCreated;
