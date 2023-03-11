@@ -19,7 +19,7 @@ public class userClone {
     @Size(min = 2, max = 20, message = "Please Enter correct name")
     private String name;
 
-    @Email(message = "Enter correct email")
+    @Email()
     private String email;
 
     @Size(min = 2, max = 20, message = "Please Enter correct name")

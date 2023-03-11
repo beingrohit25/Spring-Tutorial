@@ -6,4 +6,6 @@ import com.validations.validations.Payload.userClone;
 public interface userService {
     public User createUser(userClone userClone);
     User getById(Long userId);
+    public userClone updateUser(userClone userClone);
+    void deleteUser(Long userId);
 }
