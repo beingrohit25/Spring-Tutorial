@@ -1,11 +1,14 @@
 package com.validations.validations.Implementation;
 
 import com.validations.validations.Entity.User;
+import com.validations.validations.Exceptions.ApiException;
+import com.validations.validations.Exceptions.detailsNotFoundException;
 import com.validations.validations.Payload.userClone;
 import com.validations.validations.Repository.userRepository;
 import com.validations.validations.Service.userService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,25 +25,29 @@ public class userImplementation implements userService {
 
     @Override
     public User createUser(userClone userClone) {
-
-        log.info("Entering in Service layer for createUser");
-        log.warn("Converting clone to Entity");
-
         User user = cloneToEntity(userClone);
         user.setDateCreated(LocalDate.now());
-
-        log.warn("Sending data to Repository");
-
         User savedUser = userRepository.save(user);
-
-        log.warn("Return createUser from service layer");
-
         return savedUser;
     }
 
     @Override
     public User getById(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiException("User not found with UserID " + userId, false, HttpStatus.BAD_REQUEST));
+        return user;
+    }
+
+    @Override
+    public userClone updateUser(userClone userClone) {
         return null;
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new detailsNotFoundException("User", "userId", userId));
+        userRepository.delete(user);
     }
 
     /**
